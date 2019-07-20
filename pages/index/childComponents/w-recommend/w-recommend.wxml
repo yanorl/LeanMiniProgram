@@ -1,0 +1,9 @@
+<!--pages/index/childComponents/w-recommend.wxml-->
+<view class="recommend">
+  <block wx:for="{{recommends}}" wx:key="{{index}}">
+    <view class="recommend-item">
+      <image src="{{item.image}}" bindload='onImageLoad' lazy-load/>
+      <text>{{item.title}}</text>
+    </view>
+  </block>
+</view>
