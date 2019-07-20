@@ -1,54 +1,149 @@
-//index.js
-//获取应用实例
-const app = getApp()
+// pages/index/index.js
+import {getMultiData,getProduct} from '../../api/home.js'
+import { POP, SELL, NEW,TYPE,BACK_TOP_POSITION} from '../../common/js/const.js'
 
 Page({
+
+  /**
+   * 页面的初始数据
+   */
   data: {
-    motto: 'Hello World',
-    userInfo: {},
-    hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    banners: [],
+    recommends: [],
+    titles: ["流行", "新款", "精选"],
+    goods: {
+      [POP]: { page: 1, list: [] },
+      [NEW]: { page: 1, list: [] },
+      [SELL]: { page: 1, list: [] }
+    },
+    currentType: "pop",
+    topPosition: 0,
+    tabControlTop: 0,
+    showBackTop: false,
+    showTabControl: false
   },
-  //事件处理函数
-  bindViewTap: function() {
-    wx.navigateTo({
-      url: '../logs/logs'
-    })
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function(options) {
+    this._getDate()
   },
-  onLoad: function () {
-    if (app.globalData.userInfo) {
+  _getDate() {
+    this._getMultiData();
+    this._getProduct(POP);
+    this._getProduct(NEW);
+    this._getProduct(SELL);
+  },
+  _getMultiData() {
+    getMultiData().then((res) => {
+      const banners = res.data.banner.list;
+      const recommends = res.data.recommend.list;
       this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true
+        banners,
+        recommends
       })
-    } else if (this.data.canIUse){
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-      app.userInfoReadyCallback = res => {
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
-        })
-      }
-    } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
-        }
-      })
-    }
-  },
-  getUserInfo: function(e) {
-    console.log(e)
-    app.globalData.userInfo = e.detail.userInfo
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
     })
+  },
+  _getProduct(type) {
+    const page = this.data.goods[type].page;
+
+    getProduct(type, page).then((res) => {
+      const list = res.data.list;
+      const oldGoods = this.data.goods;
+      oldGoods[type].list.push(...list);
+      oldGoods[type].page += 1;
+      this.setData({
+        goods: oldGoods
+      })
+    })
+  },
+  tabClick(e) {
+    const index = e.detail.index;
+    const types = TYPE[index];
+    this.setData({
+      currentType: types,
+      topPosition: this.data.tabControlTop
+    })
+    this.selectComponent('#tab-control').setCurrentIndex(e.detail.index)
+    this.selectComponent('.tab-control-temp').setCurrentIndex(e.detail.index)
+  },
+  loadMore() {
+    this._getProduct(this.data.currentType);
+  },
+  scrollPosition(e) {
+    const scrollTop = e.detail.scrollTop;
+    this.setData({
+      showBackTop: scrollTop > BACK_TOP_POSITION
+    })
+
+    wx.createSelectorQuery().select('#tab-control').boundingClientRect((rect) => {
+      const show = rect.top > 0
+      this.setData({
+        showTabControl: !show
+      })
+    }).exec()
+  },
+  onImageLoad() {
+    wx.createSelectorQuery().select('#tab-control').boundingClientRect((rect) => {
+      this.setData({
+        tabControlTop: rect.top
+      })
+    }).exec()
+  },
+  onBackTop() {
+    this.setData({
+      showBackTop: false,
+      topPosition: 0,
+      tabControlTop: 0
+    })
+  },
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function() {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function() {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function() {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function() {
+
   }
 })

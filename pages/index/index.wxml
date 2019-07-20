@@ -1,13 +1,14 @@
-<!--index.wxml-->
-<view class="container">
-  <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
+<!--pages/index/index.wxml-->
+<view class="home">
+  <view hidden='{{!showTabControl}}'>
+    <w-tab-control class='tab-control-temp' titles="{{titles}}" bind:tabClick="tabClick" />
   </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
-  </view>
+  <scroll-view class="content" scroll-y bindscrolltolower="loadMore" scroll-with-animation scroll-top="{{topPosition}}" bindscroll="scrollPosition">
+    <w-swiper list="{{banners}}" />
+    <w-recommend recommends="{{recommends}}" bind:imageLoad="onImageLoad" />
+    <w-popular/>
+    <w-tab-control id='tab-control' titles="{{titles}}" bind:tabClick="tabClick" />
+    <w-goods goodslist="{{goods[currentType].list}}" />
+    <w-back-top bind:tap="onBackTop" wx:if="{{showBackTop}}" />
+  </scroll-view>
 </view>
