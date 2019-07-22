@@ -4,7 +4,7 @@
     <w-tab-control class='tab-control-temp' titles="{{titles}}" bind:tabClick="tabClick" />
   </view>
   <scroll-view class="content" scroll-y bindscrolltolower="loadMore" scroll-with-animation scroll-top="{{topPosition}}" bindscroll="scrollPosition">
-    <w-swiper list="{{banners}}" />
+    <w-swiper images="{{banners}}" />
     <w-recommend recommends="{{recommends}}" bind:imageLoad="onImageLoad" />
     <w-popular/>
     <w-tab-control id='tab-control' titles="{{titles}}" bind:tabClick="tabClick" />

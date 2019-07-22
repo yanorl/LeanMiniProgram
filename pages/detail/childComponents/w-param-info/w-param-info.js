@@ -1,12 +1,11 @@
-// components/w-swiper/w-swiper.js
+// pages/detail/childComponents/w-param-info/w-param-info.js
 Component({
   /**
    * 组件的属性列表
    */
   properties: {
-    images: {
-      type: Array,
-      value: []
+    paramInfo: {
+      type: Object
     }
   },
 
