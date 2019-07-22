@@ -1,3 +1,7 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "w-menu": "./childComponents/w-menu/w-menu",
+    "w-content": "./childComponents/w-content/w-content",
+    "w-goods": "/components/w-goods/w-goods"
+  }
 }
