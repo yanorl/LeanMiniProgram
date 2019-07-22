@@ -1,12 +1,11 @@
-// components/w-swiper/w-swiper.js
+// pages/detail/childComponents/w-base-info/w-base-info.js
 Component({
   /**
    * 组件的属性列表
    */
   properties: {
-    images: {
-      type: Array,
-      value: []
+    baseInfo:{
+      type: Object
     }
   },
 

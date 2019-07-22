@@ -37,7 +37,9 @@ Page({
   },
   _getMultiData() {
     getMultiData().then((res) => {
-      const banners = res.data.banner.list;
+      const banners = res.data.banner.list.map(item => {
+        return item.image
+      })
       const recommends = res.data.recommend.list;
       this.setData({
         banners,

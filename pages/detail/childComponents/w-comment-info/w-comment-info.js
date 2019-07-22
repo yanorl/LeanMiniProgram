@@ -1,12 +1,11 @@
-// components/w-swiper/w-swiper.js
+// pages/detail/childComponents/w-comment-info/w-comment-info.js
 Component({
   /**
    * 组件的属性列表
    */
   properties: {
-    images: {
-      type: Array,
-      value: []
+    commentInfo: {
+      type: Object
     }
   },
 
