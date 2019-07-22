@@ -22,7 +22,7 @@ Component({
    */
   methods: {
     itemClick() {
-      const iid = this.data.goodsitem.iid;
+      const iid = this.data.goodsitem.iid || this.data.goodsitem.item_id;
       wx.navigateTo({
         url: `/pages/detail/detail?iid=${iid}`
       })
