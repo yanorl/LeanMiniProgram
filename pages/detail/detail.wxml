@@ -8,4 +8,4 @@
     <w-comment-info commentInfo="{{commentInfo}}"/>
      <w-recommend-info recommends="{{recommends}}"/>
 </scroll-view>
-<w-bottom-bar bind:addcart="onAddCart"/>
+<w-bottom-bar bind:addCart="onAddCart"/>
