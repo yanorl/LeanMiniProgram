@@ -6,6 +6,7 @@
     "w-detail-info": "./childComponents/w-detail-info/w-detail-info",
     "w-param-info": "./childComponents/w-param-info/w-param-info",
     "w-comment-info": "./childComponents/w-comment-info/w-comment-info",
-    "w-recommend-info": "./childComponents/w-recommend-info/w-recommend-info"
+    "w-recommend-info": "./childComponents/w-recommend-info/w-recommend-info",
+    "w-bottom-bar": "./childComponents/w-bottom-bar/w-bottom-bar"
   }
 }

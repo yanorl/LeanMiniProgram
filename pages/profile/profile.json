@@ -1,3 +1,7 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "w-header": "./childComponents/w-header/w-header",
+    "w-info": "./childComponents/w-info/w-info",
+    "w-list-view": "./childComponents/w-list-view/w-list-view"
+  }
 }
