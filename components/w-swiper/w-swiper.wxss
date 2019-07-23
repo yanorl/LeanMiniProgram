@@ -4,5 +4,6 @@
 }
 .swiper-item image {
   width: 100%;
+  border-radius: 0;
   /* height: 100%; */
 }
